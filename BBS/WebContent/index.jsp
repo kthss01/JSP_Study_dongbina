@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Hello World!</title>
+<title>Hello JSP!</title>
 </head>
 <body>
-	Hello World!
+	Hello JSP!
 </body>
 </html>
