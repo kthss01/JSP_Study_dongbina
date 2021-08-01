@@ -12,6 +12,7 @@
 <title>JSP 게시판 웹 사이트</title>
 
 <link rel="stylesheet" href="./css/bootstrap.css">
+<link rel="stylesheet" href="./css/custom.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="./js/bootstrap.js"></script>
@@ -130,7 +131,7 @@
 				if (userID != null && userID.equals(bbs.getUserID())) {
 			%>
 					<a href="update.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>
-					<a href="deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a>
+					<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a>
 			<%
 				}
 			%>

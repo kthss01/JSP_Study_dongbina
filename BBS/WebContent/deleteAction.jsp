@@ -2,17 +2,13 @@
 	pageEncoding="UTF-8"%>
 <!-- UserDAO 클래스 import 하는 법 -->
 <%@ page import="model.dao.BBSDAO"%>
+<%@ page import="model.vo.BBS"%>
 <!-- PrintWriter javaScript 문장 작성 위해서 -->
 <%@ page import="java.io.PrintWriter"%>
 <!-- 건너오는 데이터를 UTF-8 로 받으려고 하는거 -->
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-
-<!-- 자바 빈즈 사용하겠다는 거 -->
-<jsp:useBean id="bbs" class="model.vo.BBS" scope="page" />
-<jsp:setProperty name="bbs" property="bbsTitle" />
-<jsp:setProperty name="bbs" property="bbsContent" />
 
 <!DOCTYPE html>
 <html>
@@ -39,34 +35,44 @@
 			script.println("alert('로그인을 하세요.')");
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
+		} 
+		
+		int bbsID = 0;
+		if (request.getParameter("bbsID") != null) {
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		}
+		if (bbsID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글입니다.')");
+			script.println("location.href = 'bbs.jsp'");
+			script.println("</script>");
+		}
+		
+		BBS bbs = new BBSDAO().getBbs(bbsID);
+		if (!userID.equals(bbs.getUserID())) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 없습니다.')");
+			script.println("location.href = 'bbs.jsp'");
+			script.println("</script>");
 		} else {
-			// null 체크
-			if (bbs.getBbsTitle(false) == null || bbs.getBbsContent(false) == null) {
+			BBSDAO bbsDAO = new BBSDAO();
+			int result = bbsDAO.delete(bbsID);
+			if (result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('입력이 안 된 사항이 있습니다.')");
+				script.println("alert('글 삭제에 실패했습니다.')");
 				// 이전 페이지로 사용자 돌려보내는 거
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
-				// 글쓰기
-				BBSDAO bbsDAO = new BBSDAO();
-				int result = bbsDAO.write(bbs.getBbsTitle(false), userID, bbs.getBbsContent(false));
-				if (result == -1) {
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('글쓰기에 실패했습니다.')");
-					// 이전 페이지로 사용자 돌려보내는 거
-					script.println("history.back()");
-					script.println("</script>");
-				} else {
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					// 다시 게시판으로 이동
-					script.println("location.href = 'bbs.jsp'");
-					script.println("</script>");
-				} 
-			}
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				// 다시 게시판으로 이동
+				script.println("location.href = 'bbs.jsp'");
+				script.println("</script>");
+			} 
 		}
 		
 	%>
