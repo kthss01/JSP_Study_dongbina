@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-- UserDAO 클래스 import 하는 법 -->
 <%@ page import="model.dao.UserDAO"%>
-<!-- PrintWriter javascript 문장 작성 위해서 -->
+<!-- PrintWriter javaScript 문장 작성 위해서 -->
 <%@ page import="java.io.PrintWriter"%>
 <!-- 건너오는 데이터를 UTF-8 로 받으려고 하는거 -->
 <%
