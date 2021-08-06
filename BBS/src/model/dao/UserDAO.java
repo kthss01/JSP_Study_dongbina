@@ -16,12 +16,17 @@ public class UserDAO {
 	public UserDAO() {
 		try {
 //			String dbURL = "jdbc:mysql://localhost:3306/BBS";
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
-			String dbID = "root";
-			String dbPassword = "0704";
+//			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
+//			String dbID = "root";
+//			String dbPassword = "0704";
 			
+			String dbURL = "jdbc:oracle:thin:@34.64.110.11:1521:xe";
+			String dbID = "GCP_KTH";
+			String dbPassword = "GCP_KTH";
+
 //			Class.forName("com.mysql.jdbc.Driver");
-			Class.forName("com.mysql.cj.jdbc.Driver");
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
@@ -30,7 +35,7 @@ public class UserDAO {
 	}
 	
 	public int login(String userID, String userPassword) {
-		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
+		String SQL = "SELECT userPassword FROM BBS_USER WHERE userID = ?";
 		
 		try {
 			
@@ -57,7 +62,7 @@ public class UserDAO {
 	}
 	
 	public int join(User user) {
-		String SQL = "INSERT INTO USER VALUES(?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO BBS_USER VALUES(?, ?, ?, ?, ?)";
 	
 		try {
 			pstmt = conn.prepareStatement(SQL);

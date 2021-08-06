@@ -70,12 +70,14 @@ public class BBS {
 	}
 
 	public String getDate() {
-		StringBuilder sb = new StringBuilder();
+//		StringBuilder sb = new StringBuilder();
+//		
+//		sb.append(bbsDate.substring(0, 11)).append(" ")
+//			.append(bbsDate.substring(11, 13)).append("시 ")
+//			.append(bbsDate.substring(14, 16)).append("분");
+//		
+//		return sb.toString();
 		
-		sb.append(bbsDate.substring(0, 11)).append(" ")
-			.append(bbsDate.substring(11, 13)).append("시 ")
-			.append(bbsDate.substring(14, 16)).append("분");
-		
-		return sb.toString();
+		return bbsDate;
 	}
 }
