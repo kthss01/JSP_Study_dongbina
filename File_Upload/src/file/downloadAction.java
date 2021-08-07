@@ -38,8 +38,14 @@ public class downloadAction extends HttpServlet {
 			response.setContentType("application/octet-stream");
 		}
 		
-		// 이거 해주면 pdf 면 그냥 바로 열림
-//		response.setHeader("Content-Description", "JSP Generated Data");
+//		System.out.println(mimeType);
+//		System.out.println(response.getContentType());
+//		response.setContentType(mimeType + ";name=\"" + fileName + "\"");
+		
+//		System.out.println(response.getContentType());
+		
+		// 이거 해주면 pdf 면 그냥 바로 열림 -> 그건 아닌듯 이것만 쓰면 바로 열림
+		response.setHeader("Content-Description", "JSP Generated Data");
 		
 		String downloadName = null;
 		// MSIE 인터넷 익스플로러 의미
@@ -54,7 +60,12 @@ public class downloadAction extends HttpServlet {
 		
 //		System.out.println(downloadName);
 		
-		response.setHeader(
+		// 이걸 없애줘야 다운로드 안되고 바로 보여지는거 같음
+		// attachment; 가 다운로드 한단 얘기
+//		response.addHeader(
+//				"Content-Disposition", 
+//				"inline; filename=\"" + downloadName + "\";");
+		response.addHeader(
 				"Content-Disposition", 
 				"attachment; filename=\"" + downloadName + "\";");
 		

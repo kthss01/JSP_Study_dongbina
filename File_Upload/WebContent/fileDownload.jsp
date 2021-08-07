@@ -36,6 +36,10 @@
 				+ "\">" + file.getFileName() 
 				+ " (다운로드 횟수 : " + file.getDownloadCount() + ")</a><br>");
 		}
+		
+		out.write("<a href=\"http://localhost:8000/File_Upload/upload/img_unsplash.jpg\" download>download jpg 속성 예제</a><br>");
+		out.write("<a href=\"http://localhost:8000/File_Upload/upload/QRCodePrintNew.pdf\" download>download pdf 속성 예제</a><br>");
+		out.write("<a href=\"http://localhost:8000/File_Upload/upload/QRCodePrintNew.pdf\" >pdf 예제</a><br>");
 	%>
 </body>
 </html>
