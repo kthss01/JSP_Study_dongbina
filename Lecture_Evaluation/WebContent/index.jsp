@@ -21,7 +21,6 @@
 		userID = (String) session.getAttribute("userID");
 	}
 	
-	/*
 	if (userID == null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -31,18 +30,15 @@
 		script.close();
 		return;
 	}
-	*/
 	
-	if (userID != null) {
-		boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
-		if (emailChecked == false) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("location.href = 'emailSendConfirm.jsp';");
-			script.println("</script>");
-			script.close();
-			return;
-		}
+	boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
+	if (emailChecked == false) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("location.href = 'emailSendConfirm.jsp';");
+		script.println("</script>");
+		script.close();
+		return;
 	}
 	
 %>
