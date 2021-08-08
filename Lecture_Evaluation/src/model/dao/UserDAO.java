@@ -42,8 +42,8 @@ public class UserDAO {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-				if (conn != null)
-					conn.close();
+//				if (conn != null)
+//					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -79,8 +79,8 @@ public class UserDAO {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-				if (conn != null)
-					conn.close();
+//				if (conn != null)
+//					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -117,8 +117,8 @@ public class UserDAO {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-				if (conn != null)
-					conn.close();
+//				if (conn != null)
+//					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -155,8 +155,8 @@ public class UserDAO {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-				if (conn != null)
-					conn.close();
+//				if (conn != null)
+//					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -191,8 +191,8 @@ public class UserDAO {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-				if (conn != null)
-					conn.close();
+//				if (conn != null)
+//					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
