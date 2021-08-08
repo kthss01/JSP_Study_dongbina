@@ -165,6 +165,10 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="card-footer">
+				<p class="card-text">작성자 : <%= evaluation.getUserID() %></p>
+			</div>
 		</div>
 		
 		<%
