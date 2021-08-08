@@ -22,22 +22,22 @@ public class EvaluationDAO {
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setString(1, evaluatioinDTO.getUserID());
-			pstmt.setString(2, evaluatioinDTO.getLectureName());
-			pstmt.setString(3, evaluatioinDTO.getProfessorName());
+			pstmt.setString(1, evaluatioinDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(2, evaluatioinDTO.getLectureName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(3, evaluatioinDTO.getProfessorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 			
 			pstmt.setInt(4, evaluatioinDTO.getLectureYear());
 			
-			pstmt.setString(5, evaluatioinDTO.getSemesterDivide());
-			pstmt.setString(6, evaluatioinDTO.getLectureDivide());
+			pstmt.setString(5, evaluatioinDTO.getSemesterDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(6, evaluatioinDTO.getLectureDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 			
-			pstmt.setString(7, evaluatioinDTO.getEvaluationTitle());
-			pstmt.setString(8, evaluatioinDTO.getEvaluationContent());
+			pstmt.setString(7, evaluatioinDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(8, evaluatioinDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 			
-			pstmt.setString(9, evaluatioinDTO.getTotalScore());
-			pstmt.setString(10, evaluatioinDTO.getCreditScore());
-			pstmt.setString(11, evaluatioinDTO.getComfortableScore());
-			pstmt.setString(12, evaluatioinDTO.getLectureScore());
+			pstmt.setString(9, evaluatioinDTO.getTotalScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(10, evaluatioinDTO.getCreditScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(11, evaluatioinDTO.getComfortableScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setString(12, evaluatioinDTO.getLectureScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
