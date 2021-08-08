@@ -131,4 +131,107 @@ public class EvaluationDAO {
 		return evaluationList; 
 	}
 	
+	public int like(String evaluationID) {
+		String SQL = "UPDATE EVALUATION SET likeCount = likeCount + 1 WHERE evaluationID = ?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseUtil.getConnection();
+
+			pstmt = conn.prepareStatement(SQL);
+
+			pstmt.setInt(1, Integer.parseInt(evaluationID));
+
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+//				if (conn != null)
+//					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return -1; // 데이터베이스 오류
+	}
+	
+	public int delete(String evaluationID) {
+		String SQL = "DELETE FROM EVALUATION WHERE evaluationID = ?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseUtil.getConnection();
+
+			pstmt = conn.prepareStatement(SQL);
+
+			pstmt.setInt(1, Integer.parseInt(evaluationID));
+
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+//				if (conn != null)
+//					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return -1; // 데이터베이스 오류
+	}
+	
+	public String getUserID(String evaluationID) {
+		String SQL = "SELECT userID FROM EVALUATION WHERE evaluationID = ?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseUtil.getConnection();
+
+			pstmt = conn.prepareStatement(SQL);
+
+			pstmt.setInt(1, Integer.parseInt(evaluationID));
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+//				if (conn != null)
+//					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null; // 존재하지 않는 아이디
+	}
 }
