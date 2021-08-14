@@ -12,7 +12,7 @@
 
 <script>
 	const searchRequest = new XMLHttpRequest();
-	
+	 
 	function searchFunction() {
 		searchRequest.open("Post",
 				"./userSearch.do?userName="
