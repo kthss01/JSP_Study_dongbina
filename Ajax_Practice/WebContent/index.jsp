@@ -24,7 +24,7 @@
 
 	function searchProcess() {
 		const table = document.getElementById("ajaxTable");
-
+ 
 		table.innerHTML = "";
 
 		// 성공적으로 통신 이루어졌을 때
