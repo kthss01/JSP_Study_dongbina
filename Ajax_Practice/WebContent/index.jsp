@@ -72,7 +72,7 @@
 				registerAge.value = "";
 				registerEmail.value = "";
 				
-				searchFunction();
+				searchFunction(); 
 			}
 		}
 	}
