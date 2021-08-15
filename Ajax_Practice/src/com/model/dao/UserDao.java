@@ -16,7 +16,7 @@ public class UserDao {
 	
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs;
+	private ResultSet rs = null;
 	
 	public UserDao() {
 		
