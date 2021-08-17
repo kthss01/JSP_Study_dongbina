@@ -10,14 +10,56 @@
 	<title>JSP Ajax 실시간 회원제 채팅 서비스</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-</head>
-<body>
+	
 	<%
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
+		
+		String toID = null;
+		if (request.getParameter("toID") != null) {
+			toID = request.getParameter("toID");
+		}
 	%>
+	
+	<script>
+		function autoClosingAlert(selector, delay) {
+			const alert = $(selector).alert();
+			alert.show();
+			setTimeout(function() {
+				alert.hide();
+			}, delay);
+		}
+		
+		function submitFunction() {
+			const fromID = '<%= userID %>';
+			const toID = '<%= toID %>';
+			const chatContent = $('#chatContent').val();
+			$.ajax({
+				type: "POST",
+				url: "./chatSubmit",
+				data: {
+					fromID: encodeURIComponent(fromID),
+					toID: encodeURIComponent(toID),
+					chatContent: encodeURIComponent(chatContent),
+				},
+				success: function(result) {
+					if (result == 1) {
+						autoClosingAlert('#successMessage', 2000);
+					} else if (result == 0) {
+						autoClosingAlert('#dangerMessage', 2000);
+					} else {
+						autoClosingAlert('#warningMessage', 2000);
+					}
+ 				}
+			});
+			$('#chatContent').val('');
+		}
+	</script>
+</head>
+<body>
+	
 	
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -80,11 +122,6 @@
 						<div id="chatList" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 600px;">
 						</div>
 						<div class="portlet-footer">
-							<div class="row">
-								<div class="form-group col-xs-4">
-									<input style="height: 40px;" type="text" id="chatName" class="form-control" placeholder="이름" maxlength="8">
-								</div>
-							</div>
 							<div class="row" style="height: 90px;">
 								<div class="form-group col-xs-10">
 									<textarea style="height: 80px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요." maxlength="100"></textarea>
