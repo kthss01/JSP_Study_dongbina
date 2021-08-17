@@ -118,7 +118,7 @@
 					</div>
 					<hr>`);
 			$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
-		}
+		} 
 		
 		function getInfiniteChat() {
 			setInterval(function() {
