@@ -58,7 +58,7 @@ public class ChatDao {
 						.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;")
 						.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				int chatTime = Integer.parseInt(rs.getNString("chatTime").substring(11, 13));
+				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11, 13));
 				String timeType = "오전";
 				if (chatTime >= 12) {
 					timeType = "오후";
@@ -117,7 +117,7 @@ public class ChatDao {
 						.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;")
 						.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				int chatTime = Integer.parseInt(rs.getNString("chatTime").substring(11, 13));
+				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11, 13));
 				String timeType = "오전";
 				if (chatTime >= 12) {
 					timeType = "오후";
