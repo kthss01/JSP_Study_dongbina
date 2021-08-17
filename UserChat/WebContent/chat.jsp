@@ -21,6 +21,20 @@
 		if (request.getParameter("toID") != null) {
 			toID = request.getParameter("toID");
 		}
+		
+		if (userID == null) {
+			session.setAttribute("messageType", "오류 메시지");
+			session.setAttribute("messageContent", "현재 로그인이 되어 있지 않습니다.");
+			response.sendRedirect("index.jsp");
+			return;
+		}
+		
+		if (toID == null) {
+			session.setAttribute("messageType", "오류 메시지");
+			session.setAttribute("messageContent", "대화 상대가 지정되지 않았습니다.");
+			response.sendRedirect("index.jsp");
+			return;
+		}
 	%>
 	
 	<script>
@@ -77,22 +91,7 @@
 				<li class="active"><a href="index.jsp">메인</a>
 			</ul>
 			<%
-				if (userID == null) {
-			%>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
-					</ul>
-				</li>
-			</ul> 				
-			<%
-				} else {
+				if (userID != null) {
 			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -100,6 +99,9 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
+					<ul class="dropdown-menu">
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
+					</ul>
 				</li>
 			</ul> 	
 			<%
