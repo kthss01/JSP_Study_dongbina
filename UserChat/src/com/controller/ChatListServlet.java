@@ -62,6 +62,8 @@ public class ChatListServlet extends HttpServlet {
 		
 		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
 		
+		chatDao.readChat(fromID, toID);
+		
 		return result.toString();
 	}
 
@@ -70,7 +72,7 @@ public class ChatListServlet extends HttpServlet {
 		result.append("{\"result\":[");
 		
 		ChatDao chatDao = new ChatDao();
-		ArrayList<ChatDto> chatList = chatDao.getChatListRecent(fromID, toID, 10);
+		ArrayList<ChatDto> chatList = chatDao.getChatListRecent(fromID, toID, 100);
 		
 		if (chatList.size() == 0) 
 			return "";
@@ -85,6 +87,8 @@ public class ChatListServlet extends HttpServlet {
 		}
 		
 		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
+		
+		chatDao.readChat(fromID, toID);
 		
 		return result.toString();
 	}
