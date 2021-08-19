@@ -71,6 +71,33 @@
 		function failFriend() {
 			$('#friendResult').html('');
 		}
+
+		function getUnread() {
+			$.ajax({
+				type: "POST",
+				url: "./chatUnread",
+				data: {
+					userID: encodeURIComponent('<%= userID %>'),
+				},
+				success: function(result) {
+					if (result >= 1) {
+						showUnread(result);
+					} else {
+						showUnread('');
+					}
+				}
+			});
+		}
+		
+		function getInfiniteUnread() {
+			setInterval(function() {
+				getUnread();
+			}, 4000);
+		}
+		
+		function showUnread(result) {
+			$('#unread').html(result);
+		}
 	</script>
 	
 </head>
@@ -90,6 +117,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a>
 				<li class="active"><a href="find.jsp">친구찾기</a>
+				<li><a href="box.jsp">메세지함<span id="unread" class="label label-info"></span></a>
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -196,5 +224,17 @@
 			</div>
 		</div>
 	</div>
+	<%
+		if (userID != null) {
+	%>
+		<script>
+			$(function() {
+				getUnread();
+				getInfiniteUnread();
+			});
+		</script>
+	<%
+		}
+	%>
 </body>
 </html>

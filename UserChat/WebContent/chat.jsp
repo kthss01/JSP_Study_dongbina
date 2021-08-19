@@ -128,10 +128,36 @@
 				chatListFunction(lastID);
 			}, 3000);
 		}
+		
+		function getUnread() {
+			$.ajax({
+				type: "POST",
+				url: "./chatUnread",
+				data: {
+					userID: encodeURIComponent('<%= userID %>'),
+				},
+				success: function(result) {
+					if (result >= 1) {
+						showUnread(result);
+					} else {
+						showUnread('');
+					}
+				}
+			});
+		}
+		
+		function getInfiniteUnread() {
+			setInterval(function() {
+				getUnread();
+			}, 4000);
+		}
+		
+		function showUnread(result) {
+			$('#unread').html(result);
+		}
 	</script>
 </head>
 <body>
-	
 	
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -148,6 +174,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a>
 				<li><a href="find.jsp">친구찾기</a>
+				<li><a href="box.jsp">메세지함<span id="unread" class="label label-info"></span></a>
 			</ul>
 			<%
 				if (userID != null) {
@@ -255,8 +282,10 @@
 	%>
 	<script>
 		$(function() {
-			chatListFunction('ten');
+			getUnread();
+			chatListFunction('0');
 			getInfiniteChat();
+			getInfiniteUnread();
 		});
 	</script>
 </body>

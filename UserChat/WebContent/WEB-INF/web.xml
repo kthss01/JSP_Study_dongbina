@@ -34,7 +34,7 @@
 		<servlet-name>ChatListServlet</servlet-name>
 		<url-pattern>/chatList</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>UserLoginServlet</servlet-name>
 		<servlet-class>com.controller.UserLoginServlet</servlet-class>
@@ -43,7 +43,7 @@
 		<servlet-name>UserLoginServlet</servlet-name>
 		<url-pattern>/userLogin</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ChatUnreadServlet</servlet-name>
 		<servlet-class>com.controller.ChatUnreadServlet</servlet-class>
@@ -51,5 +51,14 @@
 	<servlet-mapping>
 		<servlet-name>ChatUnreadServlet</servlet-name>
 		<url-pattern>/chatUnread</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ChatBoxServlet</servlet-name>
+		<servlet-class>com.controller.ChatBoxServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChatBoxServlet</servlet-name>
+		<url-pattern>/chatBox</url-pattern>
 	</servlet-mapping>
 </web-app>

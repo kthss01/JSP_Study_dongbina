@@ -7,6 +7,13 @@
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	
+	if (userID == null) {
+		session.setAttribute("messageType", "오류 메시지");
+		session.setAttribute("messageContent", "현재 로그인이 되어 있지 않습니다.");
+		response.sendRedirect("index.jsp");
+		return;
+	}
 %>
 <head>
 	<meta charset="UTF-8">
@@ -44,6 +51,53 @@
 		function showUnread(result) {
 			$('#unread').html(result);
 		}
+		
+		function chatBoxFunction() {
+			const userID = '<%= userID %>';
+			
+			$.ajax({
+				type: "POST",
+				url: "./chatBox",
+				data: {
+					userID: encodeURIComponent(userID),
+				},
+				success: function(data) {
+					if (data == "")
+						return;
+					$('#boxTable').html('');
+					const parsed = JSON.parse(data);
+					const result = parsed.result;
+					for (let i = 0; i < result.length; i++) {
+						if (result[i][0].value == userID) {
+							result[i][0].value = result[i][1].value;
+						} else {
+							result[i][1].value = result[i][0].value;
+						}
+						addBox(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value);
+					}
+				}
+			});
+		}
+		
+		function addBox(lastID, toID, chatContent, chatTime) {
+			$('#boxTable').append(`
+						<tr onclick="location.href=\'chat.jsp?toID=\${encodeURIComponent(toID)}\'">
+							<td style="width: 150px;">
+								<h5>\${lastID}</h5>
+							</td>
+							<td>
+								<h5>\${chatContent}</h5>
+								<div class="pull-right">\${chatTime}</div>
+							</td>
+						</tr>
+					`);
+		}
+		
+		function getInfiniteBox() {
+			setInterval(function() {
+				chatBoxFunction();
+			}, 3000);
+		}
 	</script>
 	
 </head>
@@ -62,28 +116,11 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="index.jsp">메인</a>
+				<li><a href="index.jsp">메인</a>
 				<li><a href="find.jsp">친구찾기</a>
-				<li><a href="box.jsp">메세지함<span id="unread" class="label label-info"></span></a>
+				<li class="active"><a href="box.jsp">메세지함<span id="unread" class="label label-info"></span></a>
 			</ul>
-			<%
-				if (userID == null) {
-			%>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
-					</ul>
-				</li>
-			</ul> 				
-			<%
-				} else {
-			%>
+
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
@@ -95,11 +132,25 @@
 					</ul>
 				</li>
 			</ul> 	
-			<%
-				}
-			%>
+
 		</div>
 	</nav>
+	
+	<div class="container">
+		<table class="table" style="margin: 0 auto;">
+			<thead>
+				<tr>
+					<th><h4>주고받는 메시지 목록</h4></th>
+				</tr>
+			</thead>
+			<div style="overflow-y: auto; width: 100%; max-height: 450px;">
+				<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #ddd; margin: 0 auto;">
+					<tbody id="boxTable">
+					</tbody>
+				</table>
+			</div>
+		</table>
+	</div>
 	
 	<%
 		String messageContent = null;
@@ -152,6 +203,8 @@
 			$(function() {
 				getUnread();
 				getInfiniteUnread();
+				chatBoxFunction();
+				getInfiniteBox();
 			});
 		</script>
 	<%
