@@ -339,4 +339,44 @@ public class ChatDao {
 
 		return -1;
 	}
+	
+	public int getUnreadChat(String fromID, String toID) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT COUNT(chatID) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
+
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fromID);
+			pstmt.setString(2, toID);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("COUNT(chatID)");
+			}
+
+			return 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return -1;
+	}
 }
