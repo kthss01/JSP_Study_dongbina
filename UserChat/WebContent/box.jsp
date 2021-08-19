@@ -136,19 +136,15 @@
 		</div>
 	</nav>
 	
-	<div class="container">
-		<table class="table" style="margin: 0 auto;">
+	<div class="container" style="overflow-y: auto; width: 100%; max-height: 450px;">
+		<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #ddd; margin: 0 auto;">
 			<thead>
 				<tr>
-					<th><h4>주고받는 메시지 목록</h4></th>
+					<th colspan="2"><h4>주고받는 메시지 목록</h4></th>
 				</tr>
 			</thead>
-			<div style="overflow-y: auto; width: 100%; max-height: 450px;">
-				<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #ddd; margin: 0 auto;">
-					<tbody id="boxTable">
-					</tbody>
-				</table>
-			</div>
+			<tbody id="boxTable">
+			</tbody>
 		</table>
 	</div>
 	
