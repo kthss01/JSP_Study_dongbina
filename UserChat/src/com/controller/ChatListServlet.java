@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model.dao.ChatDao;
 import com.model.dto.ChatDto;
@@ -34,6 +35,13 @@ public class ChatListServlet extends HttpServlet {
 			response.getWriter().write(getTen(URLDecoder.decode(fromID, "UTF-8"), URLDecoder.decode(toID, "UTF-8")));
 		} else {
 			try {
+				// 현재 건너온 유저와 session 유저가 일치하는지 확인
+				HttpSession session = request.getSession();
+				if (!fromID.equals((String) session.getAttribute("userID"))) {
+					response.getWriter().write("");
+					return;
+				}
+				
 				response.getWriter().write(getID(URLDecoder.decode(fromID, "UTF-8"), URLDecoder.decode(toID, "UTF-8"), listType));
 			} catch (Exception e) {
 				response.getWriter().write("");

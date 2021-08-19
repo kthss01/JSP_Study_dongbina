@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model.dao.ChatDao;
 
@@ -32,6 +33,14 @@ public class ChatSubmitServlet extends HttpServlet {
 		} else {
 			fromID = URLDecoder.decode(fromID, "UTF-8");
 			toID = URLDecoder.decode(toID, "UTF-8");
+			
+			// 현재 건너온 유저와 session 유저가 일치하는지 확인
+			HttpSession session = request.getSession();
+			if (!fromID.equals((String) session.getAttribute("userID"))) {
+				response.getWriter().write("");
+				return;
+			}
+			
 			chatContent = URLDecoder.decode(chatContent, "UTF-8");
 			response.getWriter().write(new ChatDao().submit(fromID, toID, chatContent) + "");
 		}

@@ -18,6 +18,24 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>UserLoginServlet</servlet-name>
+		<servlet-class>com.controller.UserLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserLoginServlet</servlet-name>
+		<url-pattern>/userLogin</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>UserUpdateServlet</servlet-name>
+		<servlet-class>com.controller.UserUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserUpdateServlet</servlet-name>
+		<url-pattern>/userUpdate</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ChatSubmitServlet</servlet-name>
 		<servlet-class>com.controller.ChatSubmitServlet</servlet-class>
 	</servlet>
@@ -33,15 +51,6 @@
 	<servlet-mapping>
 		<servlet-name>ChatListServlet</servlet-name>
 		<url-pattern>/chatList</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>UserLoginServlet</servlet-name>
-		<servlet-class>com.controller.UserLoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UserLoginServlet</servlet-name>
-		<url-pattern>/userLogin</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
