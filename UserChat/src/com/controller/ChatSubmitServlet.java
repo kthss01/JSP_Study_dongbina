@@ -36,7 +36,7 @@ public class ChatSubmitServlet extends HttpServlet {
 			
 			// 현재 건너온 유저와 session 유저가 일치하는지 확인
 			HttpSession session = request.getSession();
-			if (!fromID.equals((String) session.getAttribute("userID"))) {
+			if (!URLDecoder.decode(fromID, "UTF-8").equals((String) session.getAttribute("userID"))) {
 				response.getWriter().write("");
 				return;
 			}

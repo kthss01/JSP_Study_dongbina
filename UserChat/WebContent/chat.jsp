@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLDecoder" %> 
+<%@ page import="com.model.dao.UserDao" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,9 @@
 			response.sendRedirect("index.jsp");
 			return;
 		}
+		
+		String fromProfile = new UserDao().getProfile(userID);
+		String toProfile = new UserDao().getProfile(toID);
 	%>
 	
 	<script>
@@ -108,27 +112,51 @@
 		}
 		
 		function addChat(chatName, chatContent, chatTime) {
-			$('#chatList').append(
-					`<div class="row">
-						<div class="col-lg-12">
-							<div class="media">
-								<a class="pull-left" href="#">
-									<img class="media-object img-circle" style="width: 30px; height: 30px;" src="resources/images/icon.gif">
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">
-										\${chatName}
-										<span class="small pull-right">
-											\${chatTime}
-										</span>
-									</h4>
-									<p>\${chatContent}</p>
+			if (chatName == '나') {
+				$('#chatList').append(
+						`<div class="row">
+							<div class="col-lg-12">
+								<div class="media">
+									<a class="pull-left" href="#">
+										<img class="media-object img-circle" style="width: 30px; height: 30px;" src="<%= fromProfile %>">
+									</a>
+									<div class="media-body">
+										<h4 class="media-heading">
+											\${chatName}
+											<span class="small pull-right">
+												\${chatTime}
+											</span>
+										</h4>
+										<p>\${chatContent}</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<hr>`);
+						<hr>`);
+			} else {
+				$('#chatList').append(
+						`<div class="row">
+							<div class="col-lg-12">
+								<div class="media">
+									<a class="pull-left" href="#">
+										<img class="media-object img-circle" style="width: 30px; height: 30px;" src="<%= toProfile %>">
+									</a>
+									<div class="media-body">
+										<h4 class="media-heading">
+											\${chatName}
+											<span class="small pull-right">
+												\${chatTime}
+											</span>
+										</h4>
+										<p>\${chatContent}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>`);
+			}
 			$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
+			
 		} 
 		
 		function getInfiniteChat() {

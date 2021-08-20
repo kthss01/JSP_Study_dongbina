@@ -73,16 +73,17 @@
 						} else {
 							result[i][1].value = result[i][0].value;
 						}
-						addBox(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value, result[i][4].value);
+						addBox(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value, result[i][4].value, result[i][5].value);
 					}
 				}
 			});
 		}
 		
-		function addBox(lastID, toID, chatContent, chatTime, unread) {
+		function addBox(lastID, toID, chatContent, chatTime, unread, profile) {
 			$('#boxTable').append(`
 						<tr onclick="location.href=\'chat.jsp?toID=\${encodeURIComponent(toID)}\'">
 							<td style="width: 150px;">
+								<img class="media-object img-circle" style="margin: 0 auto; max-width: 40px; max-height: 40px;" src="\${profile}">
 								<h5>\${lastID}</h5>
 							</td>
 							<td>

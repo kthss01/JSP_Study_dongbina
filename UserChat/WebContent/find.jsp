@@ -29,24 +29,26 @@
 			const userID = $('#findID').val();
 			$.ajax({
 				type: "POST",
-				url: './userRegisterCheck.do',
+				url: './userFind.do',
 				data: { userID: userID },
 				success: function(result) {
-					if (result == 0) {
-						$('#checkMessage').html('친구 찾기에 성공했습니다.');
-						$('#checkType').attr('class', 'modal-content panel-success');
-						getFriend(userID);
-					} else {
-						$('#checkMessage').html('친구를 찾을 수 없습니다..');
+					if (result == -1) {
+						$('#checkMessage').html('친구를 찾을 수 없습니다.');
 						$('#checkType').attr('class', 'modal-content panel-warning');
 						failFriend();
+					} else {
+						$('#checkMessage').html('친구 찾기에 성공했습니다.');
+						$('#checkType').attr('class', 'modal-content panel-success');
+						const data = JSON.parse(result);
+						const profile = data.userProfile;
+						getFriend(userID, profile);
 					}
 					$('#checkModal').modal("show");
 				}
 			});
 		}
 		
-		function getFriend(findID) {
+		function getFriend(findID, userProfile) {
 			$('#friendResult').html(
 						`<thead>
 							<tr>
@@ -58,6 +60,7 @@
 						<tbody>
 							<tr>
 								<td style="text-align: center;">
+									<img class="media-object img-circle" style="max-width: 300px; margin: 0 auto;" src="\${userProfile}">
 									<h3>\${findID}</h3>
 									<a href="chat.jsp?toID=\${encodeURIComponent(findID)}" 
 											class="btn btn-primary pull-right">메시지 보내기
