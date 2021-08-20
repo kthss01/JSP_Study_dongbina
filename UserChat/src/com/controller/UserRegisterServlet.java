@@ -45,7 +45,7 @@ public class UserRegisterServlet extends HttpServlet {
 			return;
 		}
 		
-		int result = new UserDao().register(userID, userPassword1, userName, userAge, userGender, userEmail, userProfile);
+		int result = new UserDao().register(userID, userPassword1, userName, userAge, userGender, userEmail, "");
 		
 		if (result == 1) {
 			request.getSession().setAttribute("userID", userID);
