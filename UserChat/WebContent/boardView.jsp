@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.model.dao.BoardDao" %>
+<%@ page import="com.model.dto.BoardDto" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <%
@@ -7,6 +10,15 @@
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	
+	if (userID == null) {
+		session.setAttribute("messageType", "오류 메시지");
+		session.setAttribute("messageContent", "현재 로그인이 되어 있지 않습니다.");
+		response.sendRedirect("index.jsp");
+		return;
+	}
+	
+	ArrayList<BoardDto> boardList = new BoardDao().getList();
 %>
 <head>
 	<meta charset="UTF-8">
@@ -67,24 +79,7 @@
 				<li><a href="box.jsp">메세지함<span id="unread" class="label label-info"></span></a>
 				<li class="active"><a href="boardView.jsp">자유게시판</a></li>
 			</ul>
-			<%
-				if (userID == null) {
-			%>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
-					</ul>
-				</li>
-			</ul> 				
-			<%
-				} else {
-			%>
+
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
@@ -98,9 +93,6 @@
 					</ul>
 				</li>
 			</ul> 	
-			<%
-				}
-			%>
 		</div>
 	</nav>
 	
@@ -120,13 +112,24 @@
 			</thead>
 				
 			<tbody>
+			
+			<%
+				for (int i = 0; i < boardList.size(); i++) {
+					BoardDto board = boardList.get(i);	
+			%>
+			
 				<tr>
-					<td>1</td>
-					<td>안녕하세요</td>
-					<td>홍길동</td>
-					<td>2018-01-01</td>
-					<td>1</td>
+					<td><%= board.getBoardID() %></td>
+					<td style="text-align: left;"><a href="boardShow.jsp?boardID=<%= board.getBoardID() %>"><%= board.getBoardTitle() %></a></td>
+					<td><%= board.getUserID() %></td>
+					<td><%= board.getBoardDate() %></td>
+					<td><%= board.getBoardHit() %></td>
 				</tr>
+				
+			<%
+				}
+			%>
+				
 				<tr>
 					<td colspan="5"><a href="boardWrite.jsp" class="btn btn-primary pull-right" type="submit">글쓰기</a></td>
 				</tr>
