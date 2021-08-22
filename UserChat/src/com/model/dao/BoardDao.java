@@ -325,4 +325,74 @@ public class BoardDao {
 		
 		return -1; // 데이터베이스 오류
 	}
+	
+	public int reply(String userID, String boardTitle, String boardContent, String boardFile, String boardRealFile, BoardDto parent) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO BOARD SELECT ?, IFNULL((SELECT MAX(boardID) + 1 FROM BOARD), 1), ?, ?, now(), 0, ?, ?, ?, ?, ?";
+		
+		try {
+			
+			conn = dataSource.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userID);
+			pstmt.setString(2, boardTitle);
+			pstmt.setString(3, boardContent);
+			pstmt.setString(4, boardFile);
+			pstmt.setString(5, boardRealFile);
+			pstmt.setInt(6, parent.getBoardGroup());
+			pstmt.setInt(7, parent.getBoardSequence() + 1);
+			pstmt.setInt(8, parent.getBoardLevel() + 1);
+			
+			return pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return -1; // 데이터베이스 오류
+	}
+	
+	public int replyUpdate(BoardDto parent) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "UPDATE BOARD SET boardSequence = boardSequence + 1  WHERE boardGroup > ? and boardSequence > ?";
+		
+		try {
+			
+			conn = dataSource.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, parent.getBoardGroup());
+			pstmt.setInt(1, parent.getBoardSequence());
+			
+			return pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return -1; // 데이터베이스 오류
+	}
 }
