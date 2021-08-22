@@ -135,14 +135,14 @@
 			<tbody>
 				<tr>
 					<td colspan="5" style="text-align: right;">
-						<a href="boardUpdate.jsp?boardID=<%= board.getBoardID() %>" class="btn btn-primary">수정</a>
 						<a href="boardView.jsp" class="btn btn-primary">목록</a>
 						<a href="boardReply.jsp?boardID=<%= board.getBoardID() %>" class="btn btn-primary">답변</a>
 						<%
 							if (userID.equals(board.getUserID())) {
 								
 						%>
-						<a href="boardDelete.jsp?boardID=<%= board.getBoardID() %>" class="btn btn-primary">삭제</a>
+						<a href="boardUpdate.jsp?boardID=<%= board.getBoardID() %>" class="btn btn-primary">수정</a>
+						<a href="boardDelete?boardID=<%= board.getBoardID() %>" class="btn btn-primary" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
 						<%
 							}
 						%>
