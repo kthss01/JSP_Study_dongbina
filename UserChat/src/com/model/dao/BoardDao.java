@@ -107,19 +107,22 @@ public class BoardDao {
 		return board;
 	}
 	
-	public ArrayList<BoardDto> getList() {
+	public ArrayList<BoardDto> getList(String pageNumber) {
 		ArrayList<BoardDto> boardList = null;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM BOARD ORDER BY boardGroup DESC, boardSequence ASC";
+		String sql = "SELECT * FROM BOARD WHERE boardGroup > (SELECT MAX(boardGroup) FROM BOARD) - ? AND boardGroup <= (SELECT MAX(boardGroup) FROM BOARD) - ? ORDER BY boardGroup DESC, boardSequence ASC";
 		
 		try {
 			
 			conn = dataSource.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(pageNumber) * 10);
+			pstmt.setInt(2, (Integer.parseInt(pageNumber) - 1) * 10);
 			
 			boardList = new ArrayList<BoardDto>();
 			
@@ -155,6 +158,76 @@ public class BoardDao {
 		}
 		
 		return boardList;
+	}
+	
+	public boolean nextPage(String pageNumber) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM BOARD WHERE boardGroup >= ?";
+		
+		try {
+			
+			conn = dataSource.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(pageNumber) * 10);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
+	
+	public int targetPage(String pageNumber) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(boardGroup) FROM BOARD WHERE boardGroup > ?";
+		
+		try {
+			
+			conn = dataSource.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, (Integer.parseInt(pageNumber) - 1) * 10);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1) / 10;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return 0;
 	}
 	
 	public int hit(String boardID) {

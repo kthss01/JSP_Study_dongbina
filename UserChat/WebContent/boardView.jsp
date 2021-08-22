@@ -18,7 +18,20 @@
 		return;
 	}
 	
-	ArrayList<BoardDto> boardList = new BoardDao().getList();
+	String pageNumber = "1";
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = request.getParameter("pageNumber");
+	}
+	try {
+		Integer.parseInt(pageNumber);
+	} catch (Exception e) {
+		session.setAttribute("messageType", "오류 메시지");
+		session.setAttribute("messageContent", "페이지 번호가 잘못 되었습니다.");
+		response.sendRedirect("boardView.jsp");
+		return;
+	}
+	
+	ArrayList<BoardDto> boardList = new BoardDao().getList(pageNumber);
 %>
 <head>
 	<meta charset="UTF-8">
@@ -154,7 +167,22 @@
 			%>
 				
 				<tr>
-					<td colspan="5"><a href="boardWrite.jsp" class="btn btn-primary pull-right" type="submit">글쓰기</a></td>
+					<td colspan="5">
+						<a href="boardWrite.jsp" class="btn btn-primary pull-right" type="submit">글쓰기</a>
+
+					<%
+						if (!pageNumber.equals("1")) {
+					%>
+						<a href="boardView.jsp?pageNumber=<%= Integer.parseInt(pageNumber) - 1 %>" class="btn btn-success">이전</a>
+					<%
+						} 
+						if (new BoardDao().nextPage(pageNumber)) {
+					%>
+						<a href="boardView.jsp?pageNumber=<%= Integer.parseInt(pageNumber) + 1 %>" class="btn btn-success">다음</a>
+					<%
+						}
+					%>
+					</td>
 				</tr>
 			</tbody>
 		</table>
