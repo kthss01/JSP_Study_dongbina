@@ -259,4 +259,39 @@ public class BoardDao {
 		
 		return "";
 	}
+	
+	public int update(String boardID, String boardTitle, String boardContent, String boardFile, String boardRealFile) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "UPDATE BOARD SET boardTitle = ?, boardContent = ?, boardFile = ?, boardRealFile = ? WHERE boardID = ?";
+		
+		try {
+			
+			conn = dataSource.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardContent);
+			pstmt.setString(3, boardFile);
+			pstmt.setString(4, boardRealFile);
+			pstmt.setInt(5, Integer.parseInt(boardID));
+			
+			return pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return -1; // 데이터베이스 오류
+	}
 }
