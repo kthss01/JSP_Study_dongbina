@@ -169,19 +169,47 @@
 				<tr>
 					<td colspan="5">
 						<a href="boardWrite.jsp" class="btn btn-primary pull-right" type="submit">글쓰기</a>
-
+						<ul class="pagination" style="margin: 0 auto;">
 					<%
-						if (!pageNumber.equals("1")) {
+						int startPage = (Integer.parseInt(pageNumber) / 10) * 10 + 1;
+						if (Integer.parseInt(pageNumber) % 10 == 0) startPage -= 10;
+						int targetPage = new BoardDao().targetPage(pageNumber);
+						if (startPage != 1) {
 					%>
-						<a href="boardView.jsp?pageNumber=<%= Integer.parseInt(pageNumber) - 1 %>" class="btn btn-success">이전</a>
+											
+						<li><a href="boardView.jsp?pageNumber=<%= startPage - 1 %>" class="btn btn-success"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 					<%
-						} 
-						if (new BoardDao().nextPage(pageNumber)) {
+						} else {
 					%>
-						<a href="boardView.jsp?pageNumber=<%= Integer.parseInt(pageNumber) + 1 %>" class="btn btn-success">다음</a>
+						<li><span class="glyphicon glyphicon-chevron-left" style="color: gray;"></span></li>		
+					<%
+						}
+						for (int i = startPage; i < Integer.parseInt(pageNumber); i++) {
+					%>
+						<li><a href="boardView.jsp?pageNumber=<%= i %>" class="btn btn-success"><%= i %></a></li>
 					<%
 						}
 					%>
+						<li class="active"><a href="boardView.jsp?pageNumber=<%= pageNumber %>" class="btn btn-success"><%= pageNumber %></a></li>
+					<%
+						for (int i = Integer.parseInt(pageNumber) + 1; i <= targetPage + Integer.parseInt(pageNumber); i++) {
+							if (i < startPage + 10) {
+					%>
+						<li><a href="boardView.jsp?pageNumber=<%= i %>" class="btn btn-success"><%= i %></a></li>
+					<%
+							}
+						}
+						if (targetPage + Integer.parseInt(pageNumber) > startPage + 9) {
+					%>
+						<li><a href="boardView.jsp?pageNumber=<%= startPage + 10 %>" class="btn btn-success"></a><span class="glyphicon glyphicon-chevron-right"></span></li>
+					<%
+						} else {
+					%>
+						<li><span class="glyphicon glyphicon-chevron-right" style="color: gray;"></span></li>
+					<%
+						}
+					%>
+						</ul>
 					</td>
 				</tr>
 			</tbody>
