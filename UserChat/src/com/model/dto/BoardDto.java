@@ -15,4 +15,5 @@ public class BoardDto {
 	private int boardGroup;
 	private int boardSequence;
 	private int boardLevel;
+	private int boardAvailable;
 }

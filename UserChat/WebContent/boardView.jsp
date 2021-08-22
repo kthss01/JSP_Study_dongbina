@@ -130,8 +130,20 @@
 			<%
 					}
 			%>
+			
+			<%
+					if (board.getBoardAvailable() == 0) {
+			%>
+					(삭제된 게시물입니다.)
+			<%
+					} else {
+			%>
+					<%= board.getBoardTitle() %>
+			<%
+					}			
+			%>
 					
-					<%= board.getBoardTitle() %></a></td>
+					</a></td>
 					<td><%= board.getUserID() %></td>
 					<td><%= board.getBoardDate() %></td>
 					<td><%= board.getBoardHit() %></td>

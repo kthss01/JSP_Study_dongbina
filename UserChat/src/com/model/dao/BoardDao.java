@@ -29,7 +29,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "INSERT INTO BOARD SELECT ?, IFNULL((SELECT MAX(boardID) + 1 FROM BOARD), 1), ?, ?, now(), 0, ?, ?, IFNULL((SELECT MAX(boardGroup) + 1 FROM BOARD), 0), 0, 0";
+		String sql = "INSERT INTO BOARD SELECT ?, IFNULL((SELECT MAX(boardID) + 1 FROM BOARD), 1), ?, ?, now(), 0, ?, ?, IFNULL((SELECT MAX(boardGroup) + 1 FROM BOARD), 0), 0, 0, 1";
 		
 		try {
 			
@@ -90,6 +90,7 @@ public class BoardDao {
 				board.setBoardGroup(rs.getInt("boardGroup"));
 				board.setBoardSequence(rs.getInt("boardSequence"));
 				board.setBoardLevel(rs.getInt("boardLevel"));
+				board.setBoardAvailable(rs.getInt("boardAvailable"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,6 +138,7 @@ public class BoardDao {
 				board.setBoardGroup(rs.getInt("boardGroup"));
 				board.setBoardSequence(rs.getInt("boardSequence"));
 				board.setBoardLevel(rs.getInt("boardLevel"));
+				board.setBoardAvailable(rs.getInt("boardAvailable"));
 				
 				boardList.add(board);
 			}
@@ -299,7 +301,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "DELETE FROM BOARD WHERE boardID = ?";
+		String sql = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ?";
 		
 		try {
 			
@@ -330,7 +332,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "INSERT INTO BOARD SELECT ?, IFNULL((SELECT MAX(boardID) + 1 FROM BOARD), 1), ?, ?, now(), 0, ?, ?, ?, ?, ?";
+		String sql = "INSERT INTO BOARD SELECT ?, IFNULL((SELECT MAX(boardID) + 1 FROM BOARD), 1), ?, ?, now(), 0, ?, ?, ?, ?, ?, 1";
 		
 		try {
 			
@@ -368,7 +370,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "UPDATE BOARD SET boardSequence = boardSequence + 1  WHERE boardGroup > ? and boardSequence > ?";
+		String sql = "UPDATE BOARD SET boardSequence = boardSequence + 1  WHERE boardGroup > ? AND boardSequence > ?";
 		
 		try {
 			
@@ -377,7 +379,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, parent.getBoardGroup());
-			pstmt.setInt(1, parent.getBoardSequence());
+			pstmt.setInt(2, parent.getBoardSequence());
 			
 			return pstmt.executeUpdate();
 			
