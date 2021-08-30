@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="JSP_Study_dongbina">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Ajax_Practice/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Anonymous/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/apache-tomcat-8.5.69/webapps/docs/appdev/sample/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/apache-tomcat-8.5.69/webapps/examples/jsp/plugin/applet"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/apache-tomcat-8.5.69/webapps/examples/WEB-INF/classes"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/apache-tomcat-8.5.69/webapps/examples/WEB-INF/jsp/applet"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/apache-tomcat-8.5.69/work/Catalina/localhost/ROOT"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BBS/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/cos-20.08/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/File_Upload/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/GoogleSMTP_Practice/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/jaf-1.1.1/demo"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lecture_Evaluation/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/build/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/demo/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/generated/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/legacy/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/main/core-api/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/main/core-impl/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/main/protocol-impl/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/main/user-api/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/main/user-impl/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql-connector-java-8.0.20/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserChat/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/client"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/logging"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/outlook"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/servlet"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/webapp/src/classes"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javamail-1.4.7/demo/webapp/src/taglib"/>
+        <property name="context-root" value="JSP_Study_dongbina"/>
+        <property name="java-output-path" value="/JSP_Study_dongbina/Ajax_Practice/build/classes"/>
+    </wb-module>
+</project-modules>
