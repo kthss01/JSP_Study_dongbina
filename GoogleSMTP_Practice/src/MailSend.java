@@ -29,7 +29,7 @@ public class MailSend {
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.smtp.auth", "true");
 
-//		p.put("mail.smtp.starttls.required", "true");
+		p.put("mail.smtp.starttls.required", "true");
 		p.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		
 		p.put("mail.smtp.debug", "true");
